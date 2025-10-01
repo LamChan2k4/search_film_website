@@ -11,7 +11,7 @@ const API_URL_BASE = 'https://api.themoviedb.org/3';
 
 function App() {
   const [movies,setMovies]= useState([]);
-  const [searchTerm, setSearchTerm] = useState('averages');
+  const [searchTerm] = useState('averages');
 
   const notifyError = () => toast.error("hãy nhập tên phim");
 
@@ -26,7 +26,7 @@ function App() {
       notifyError();
     }
   }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     searchMovies(searchTerm); 
   }, []);
