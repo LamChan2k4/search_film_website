@@ -26,7 +26,7 @@ function App() {
       notifyError();
     }
   }
-// eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     searchMovies(searchTerm); 
   }, []);
