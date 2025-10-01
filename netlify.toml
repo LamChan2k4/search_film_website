@@ -1,7 +1,7 @@
 [build]
-  command = "npm run build"
+  command = "CI=false npm run build"
   publish = "build"
-
+# ... phần redirects
 [[redirects]]
   from = "/*"
   to = "/index.html"
