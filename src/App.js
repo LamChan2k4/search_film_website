@@ -6,7 +6,7 @@ import MovieList from './components/movieList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
-const API_KEY = '5dc6b0813507fc4e3a1cc69731071833'; 
+const API_KEY = process.env.REACT_APP_API_KEY;; 
 const API_URL_BASE = 'https://api.themoviedb.org/3';
 
 function App() {
