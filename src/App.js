@@ -1,23 +1,52 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import Header from './components/header';
+import SearchBar from './components/searchBar';
+import MovieList from './components/movieList';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
+
+const API_KEY = '5dc6b0813507fc4e3a1cc69731071833'; 
+const API_URL_BASE = 'https://api.themoviedb.org/3';
 
 function App() {
+  const [movies,setMovies]= useState([]);
+  const [searchTerm, setSearchTerm] = useState('averages');
+
+  const notifyError = () => toast.error("hãy nhập tên phim");
+
+  const searchMovies=async (title)=>{
+    const response=await fetch(`${API_URL_BASE}/search/movie?api_key=${API_KEY}&query=${title}`);
+    const data = await response.json();
+    console.log(data.results);
+    if(data.results && data.results.length>0){
+      setMovies(data.results);
+    }
+    else{
+      notifyError();
+    }
+  }
+
+  useEffect(() => {
+    searchMovies(searchTerm); 
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ToastContainer
+        position="top-right" // Default position
+        autoClose={5000}    // Close after 5 seconds
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <Header />
+       <SearchBar onSearch={searchMovies} /> {/* Truyền hàm searchMovies xuống cho SearchBar */}
+      <MovieList movies={movies} /> {/* Truyền danh sách phim xuống cho MovieList */}
     </div>
   );
 }
